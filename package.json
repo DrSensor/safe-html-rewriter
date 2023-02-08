@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/DrSensor/safe-html-rewriter/issues"
   },
-  "homepage": "https://github.com/DrSensor/safe-html-rewriter#readme"
+  "homepage": "https://github.com/DrSensor/safe-html-rewriter#readme",
+  "dependencies": {
+    "npm:html-rewriter-wasm": "npm:html-rewriter-wasm"
+  }
 }

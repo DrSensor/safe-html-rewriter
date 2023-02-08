@@ -1,0 +1,13 @@
+lockfileVersion: 5.4
+
+specifiers:
+  npm:html-rewriter-wasm: npm:html-rewriter-wasm
+
+dependencies:
+  npm:html-rewriter-wasm: /html-rewriter-wasm/0.4.1
+
+packages:
+
+  /html-rewriter-wasm/0.4.1:
+    resolution: {integrity: sha512-lNovG8CMCCmcVB1Q7xggMSf7tqPCijZXaH4gL6iE8BFghdQCbaY5Met9i1x2Ex8m/cZHDUtXK9H6/znKamRP8Q==}
+    dev: false
