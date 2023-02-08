@@ -35,6 +35,23 @@ export class HTMLRewriter {
     this.#cache.clear();
   }
 
+  off(selector: string, handlers?: cf.ElementHandlers) {
+    if (handlers) {
+      const [handle, list] = this.#cache.get(selector)!;
+      for (const h in handlers) {
+        type H = keyof typeof handlers;
+        const lh = list[h as H]; // @ts-ignore: typescript can't infer handlers[h]
+        lh?.delete(handlers[h as H]);
+        if (lh?.size === 0) {
+          delete list[h as H];
+          delete handle[h as H];
+        }
+      }
+      if (Object.keys(handle).length === 0) this.#cache.delete(selector);
+    } else this.#cache.delete(selector);
+    return this;
+  }
+
   on(selector: string, handlers: cf.ElementHandlers) {
     let notCached: [cf.ElementHandlers, ElementHandlers] | undefined;
     const [handle, list] = this.#cache.get(selector) ??
