@@ -1,8 +1,8 @@
 {
   "name": "safe-html-rewriter",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Safe (fault-tolerant) wrapper around WebAssembly version of Cloudlflare HTMLRewriter",
-  "exports": "module.js",
+  "exports": "./module.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DrSensor/safe-html-rewriter.git"
