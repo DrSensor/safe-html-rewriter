@@ -1,0 +1,24 @@
+{
+  "name": "safe-html-rewriter",
+  "version": "0.1.0",
+  "description": "Safe (fault-tolerant) wrapper around WebAssembly version of Cloudlflare HTMLRewriter",
+  "exports": "module.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DrSensor/safe-html-rewriter.git"
+  },
+  "keywords": [
+    "cloudflare",
+    "workers",
+    "worker",
+    "html",
+    "rewriter",
+    "lol"
+  ],
+  "author": "Fahmi Akbar Wildana",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/DrSensor/safe-html-rewriter/issues"
+  },
+  "homepage": "https://github.com/DrSensor/safe-html-rewriter#readme"
+}
