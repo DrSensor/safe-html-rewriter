@@ -22,6 +22,6 @@
   },
   "homepage": "https://github.com/DrSensor/safe-html-rewriter#readme",
   "dependencies": {
-    "npm:html-rewriter-wasm": "npm:html-rewriter-wasm@^0.4.1"
+    "html-rewriter-wasm": "^0.4.1"
   }
 }

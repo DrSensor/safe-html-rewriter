@@ -6,8 +6,8 @@ class USVString {
   encode = (input: string) => this.#encoder.encode(input);
 }
 
-export type { ElementHandlers } from "npm:html-rewriter-wasm";
-import * as cf from "npm:html-rewriter-wasm";
+export type { ElementHandlers } from "html-rewriter-wasm";
+import * as cf from "html-rewriter-wasm";
 
 export class HTMLRewriter {
   static #string = new USVString();
