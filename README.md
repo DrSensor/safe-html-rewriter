@@ -1,5 +1,5 @@
 # safe-html-rewriter
-Safe (fault-tolerant) wrapper around [WebAssembly version of Cloudlfare HTMLRewriter][html-rewriter-wasm][^1]
+Safe (fault-tolerant) wrapper around [WebAssembly version of Cloudlflare HTMLRewriter][html-rewriter-wasm][^1]
 
 ```ts
 import { HTMLRewriter, type RewriterHandlers } from "npm:safe-html-rewriter";
