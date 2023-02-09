@@ -13,25 +13,31 @@ export class HTMLRewriter {
   static #string = new USVString();
   #output = "";
 
-  #isFlushed = true;
+  #isFlushed = false;
   #cache = new Map<string, [cf.ElementHandlers, ElementHandlers]>();
-  #rewrite?: cf.HTMLRewriter;
+  #new = () =>
+    new cf.HTMLRewriter(
+      (chunk) => this.#output += HTMLRewriter.#string.decode(chunk),
+      { enableEsiTags: false },
+    );
+  #rewrite = this.#new();
   #mayReconstruct() {
-    if (this.#isFlushed) {
-      this.#rewrite?.free();
-      this.#rewrite = new cf.HTMLRewriter(
-        (chunk) => this.#output += HTMLRewriter.#string.decode(chunk),
-        { enableEsiTags: false },
-      );
-      this.#cache.forEach(([handle], selector) =>
-        this.#rewrite!.on(selector, handle)
-      );
+    const yes = this.#isFlushed;
+    if (yes) {
+      this.#rewrite.free();
+      this.#rewrite = this.#new();
       this.#isFlushed = false;
     }
+    return yes;
+  }
+  #reinstate() {
+    this.#cache.forEach(([handle], selector) =>
+      this.#rewrite.on(selector, handle)
+    );
   }
 
   free() {
-    this.#rewrite?.free();
+    this.#rewrite.free();
     this.#cache.clear();
   }
 
@@ -60,21 +66,22 @@ export class HTMLRewriter {
       (list[h] ??= new Set()).add(handlers[h]); // @ts-ignore: current typescript can't infer this
       handle[h] ??= (...args) => list[h].forEach((handle) => handle(...args));
     }
-    this.#mayReconstruct();
-    if (notCached) this.#rewrite!.on(selector, handle!);
+    if (this.#mayReconstruct() || notCached) {
+      this.#rewrite.on(selector, handle!);
+    }
     return this;
   }
 
   async transform(input: string) {
-    this.#mayReconstruct();
-    await this.#rewrite!.write(HTMLRewriter.#string.encode(input));
+    if (this.#mayReconstruct()) this.#reinstate();
+    await this.#rewrite.write(HTMLRewriter.#string.encode(input));
     this.#isFlushed = true;
     const result: string = this.#output;
     await this.#reset();
     return result;
   }
   async #reset() {
-    await this.#rewrite!.end();
+    await this.#rewrite.end();
     this.#output = "";
   }
 }
