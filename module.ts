@@ -72,6 +72,12 @@ export class HTMLRewriter {
     return this;
   }
 
+  #ephemeral = new Map<string, cf.ElementHandlers>();
+  once(selector: string, handlers: cf.ElementHandlers) {
+    this.on(selector, handlers);
+    this.#ephemeral.set(selector, handlers);
+  }
+
   async transform(input: string) {
     if (this.#mayReconstruct()) this.#reinstate();
     await this.#rewrite.write(HTMLRewriter.#string.encode(input));
@@ -83,6 +89,12 @@ export class HTMLRewriter {
   async #reset() {
     await this.#rewrite.end();
     this.#output = "";
+    if (this.#ephemeral.size > 0) {
+      this.#ephemeral.forEach((handlers, selector) =>
+        this.off(selector, handlers)
+      );
+      this.#ephemeral.clear();
+    }
   }
 }
 
