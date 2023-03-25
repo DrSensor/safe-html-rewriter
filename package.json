@@ -4,6 +4,10 @@
   "description": "Safe (fault-tolerant) wrapper around WebAssembly version of Cloudlflare HTMLRewriter",
   "type": "module",
   "exports": "./module.js",
+  "types": "./module.d.ts",
+  "scripts": {
+    "build": "rollup -c"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DrSensor/safe-html-rewriter.git"
@@ -24,5 +28,10 @@
   "homepage": "https://github.com/DrSensor/safe-html-rewriter#readme",
   "dependencies": {
     "html-rewriter-wasm": "^0.4.1"
+  },
+  "devDependencies": {
+    "@rollup/plugin-sucrase": "^5.0.0",
+    "rollup-plugin-dts": "^5.3.0",
+    "rollup": "^3.20.0"
   }
 }

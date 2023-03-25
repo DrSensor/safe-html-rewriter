@@ -16,13 +16,8 @@ jobs:
           node-version: latest
           registry-url: https://registry.npmjs.org
 
-      - name: Setup esbuild
-        run: curl -fsSL https://esbuild.github.io/dl/latest | sh
-
       - name: Bundle
-        run: |
-          exports=$(jq '.exports' package.json -r)
-          ./esbuild $(basename $exports .js).ts --outfile=$exports
+        run: npm run build
 
       - name: Publish
         run: npm publish
